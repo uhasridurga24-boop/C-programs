@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = right = nullptr;
+    }
+};
+Node* buildTree() {
+    int val;
+    cout << "Enter data (-1 for no node): ";
+    cin >> val;
+
+    if (val == -1) {
+        return nullptr;
+    }
+
+    Node* root = new Node(val);
+
+    cout << "Enter left child of " << val << ": " << endl;
+    root->left = buildTree();
+
+    cout << "Enter right child of " << val << ": " << endl;
+    root->right = buildTree();
+
+    return root;
+}
+void inorder(Node* root) {
+    if (root == nullptr)
+    return; 
+    
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+
+int main() {
+    Node* root = nullptr;
+    root = buildTree();
+    cout << "\nIn-order Traversal: ";
+    inorder(root);
+    cout << endl;
+
+    return 0;
+}
